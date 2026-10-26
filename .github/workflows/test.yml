@@ -1,0 +1,35 @@
+name: Run Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install server dependencies
+        run: cd server && npm install
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: "true"
+
+      - name: Validate package.json
+        run: cd server && node -e "JSON.parse(require('fs').readFileSync('package.json'))"
+
+      - name: Run tests
+        run: cd server && npm test
+        env:
+          RAZORPAY_KEY: test_dummy_key
+          RAZORPAY_SECRET: test_dummy_secret
+          JWT_SECRET: test_jwt_secret
+          MONGODB_URI: test
