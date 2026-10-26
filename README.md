@@ -156,4 +156,4 @@ cd Schlor/client && npm install && npm start
 
 ## License
 
-MIT © [Somya Bhawsar](https://github.com/Somyabhawsar45)
+MIT © [Yashu Shakya](https://github.com/yashushakya2005)
